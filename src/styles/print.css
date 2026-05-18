@@ -2,7 +2,7 @@
 
 @page {
   size: A4;
-  margin: 0;
+  margin: 12mm 0;
 }
 
 /* Print-specific styles */
@@ -16,5 +16,13 @@
   #vue-inspector-container,
   #__vue-devtools-container__ {
     display: none !important;
+  }
+
+  .items-table__head {
+    display: table-header-group;
+  }
+
+  .items-table__row {
+    page-break-inside: avoid;
   }
 }

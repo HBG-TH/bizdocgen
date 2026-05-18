@@ -185,7 +185,7 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
                 Client: 5,
                 Provider: 2,
                 Tax: 0,
-                Credit_Term: '30 วัน',
+                Credit_Term: 30,
                 Remarks:
                   '### หมายเหตุ\nใบเสนอราคานี้มีอายุ 30 วัน\n\n> หมายเหตุ: ถ้าลูกค้าหัวเราะระหว่างอบรม แปลว่าเข้าใจแล้ว',
                 Reference: { Number: 'QT-2025-0042' },

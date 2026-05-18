@@ -27,7 +27,12 @@ export const ItemSchema = z.object({
   Description: z.string(),
   Manual_Sort: z.number().nullish(),
   Quantity: z.number(),
+  Discount: z.number(),
   Total: z.number(),
+  AMT_B_Vat: z.number(),
+  Vat_Type: z.string(),
+  Vat_Amount: z.number(),
+  Wht_amount: z.number(),
   Unit_Price: z.number(),
   id: z.number(),
 })
@@ -62,7 +67,7 @@ export const ActionsDataSchema = z.object({
 
 export const RecordDataSchema = z.object({
   Client: ClientSchema,
-  Credit_Term: z.string().nullish(),
+  Credit_Term: z.number().nullish(),
   Date: z.string(), // ISO date string
   Document_Type: DocumentTypeListSchema,
   Items: z.array(ItemSchema),
@@ -71,7 +76,6 @@ export const RecordDataSchema = z.object({
   Provider: ProviderSchema,
   Reference: ReferenceSchema,
   Remarks: z.string().nullish(),
-  Tax: z.number(),
   Signed_Document_URL: z.union([z.url(), z.literal('')]).nullish(),
   Actions_Data: ActionsDataSchema.optional(),
 })

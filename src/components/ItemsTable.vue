@@ -7,7 +7,10 @@
           <th class="items-table__header items-table__header--description">รายการ</th>
           <th class="items-table__header items-table__header--quantity">จำนวน</th>
           <th class="items-table__header items-table__header--unit-price">ราคาต่อหน่วย</th>
-          <th class="items-table__header items-table__header--total">จำนวนเงิน</th>
+          <th class="items-table__header items-table__header--discount">ส่วนลด</th>
+          <th class="items-table__header items-table__header--vat">VAT</th>
+          <th class="items-table__header items-table__header--amt-b-vat">มูลค่าก่อนภาษี</th>
+          <th class="items-table__header items-table__header--wht">WHT</th>
         </tr>
       </thead>
       <tbody class="items-table__body">
@@ -25,8 +28,17 @@
           <td class="items-table__cell items-table__cell--unit-price">
             {{ formatCurrency(item.unitPrice) }}
           </td>
-          <td class="items-table__cell items-table__cell--total">
-            {{ formatCurrency(item.total) }}
+          <td class="items-table__cell items-table__cell--discount">
+            {{ item.discount > 0 ? formatCurrency(item.discount) : '-' }}
+          </td>
+          <td class="items-table__cell items-table__cell--vat">
+            {{ item.vatType || '-' }}
+          </td>
+          <td class="items-table__cell items-table__cell--amt-b-vat">
+            {{ formatCurrency(item.amtBVat) }}
+          </td>
+          <td class="items-table__cell items-table__cell--wht">
+            {{ item.whtAmount < 0 ? formatCurrency(Math.abs(item.whtAmount)) : 'ไม่มี' }}
           </td>
         </tr>
       </tbody>
@@ -60,7 +72,7 @@ const viewModel = computed(() => {
 .items-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
 }
 
 .items-table__header {
@@ -70,7 +82,7 @@ const viewModel = computed(() => {
   text-align: left;
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
 }
 
 .items-table__cell {
@@ -78,12 +90,12 @@ const viewModel = computed(() => {
   padding: var(--table-cell-padding);
   color: var(--text-primary);
   vertical-align: top;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
 }
 
 .items-table__header--number,
 .items-table__cell--number {
-  width: 1cm;
+  width: 0.8cm;
   text-align: center;
 }
 
@@ -94,19 +106,37 @@ const viewModel = computed(() => {
 
 .items-table__header--quantity,
 .items-table__cell--quantity {
-  width: 1.5cm;
+  width: 0.9cm;
   text-align: right;
 }
 
 .items-table__header--unit-price,
 .items-table__cell--unit-price {
+  width: 1.8cm;
+  text-align: right;
+}
+
+.items-table__header--discount,
+.items-table__cell--discount {
+  width: 1.6cm;
+  text-align: right;
+}
+
+.items-table__header--vat,
+.items-table__cell--vat {
+  width: 1cm;
+  text-align: center;
+}
+
+.items-table__header--amt-b-vat,
+.items-table__cell--amt-b-vat {
   width: 2cm;
   text-align: right;
 }
 
-.items-table__header--total,
-.items-table__cell--total {
-  width: 2cm;
+.items-table__header--wht,
+.items-table__cell--wht {
+  width: 1.2cm;
   text-align: right;
 }
 

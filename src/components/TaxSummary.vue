@@ -6,13 +6,15 @@
         <div class="tax-summary__amount">{{ formatCurrency(subtotal) }}</div>
       </div>
 
-      <div v-if="taxInfo.label" class="tax-summary__row">
-        <div class="tax-summary__label">{{ taxInfo.label }}</div>
-        <div
-          class="tax-summary__amount"
-          :class="{ 'tax-summary__amount--negative': taxInfo.percentage < 0 }"
-        >
-          {{ taxInfo.percentage < 0 ? '-' : '' }}{{ formatCurrency(Math.abs(taxInfo.amount)) }}
+      <div v-if="vatTotal > 0" class="tax-summary__row">
+        <div class="tax-summary__label">VAT 7%</div>
+        <div class="tax-summary__amount">{{ formatCurrency(vatTotal) }}</div>
+      </div>
+
+      <div v-if="whtTotal < 0" class="tax-summary__row">
+        <div class="tax-summary__label">ภาษีหัก ณ ที่จ่าย</div>
+        <div class="tax-summary__amount tax-summary__amount--negative">
+          -{{ formatCurrency(Math.abs(whtTotal)) }}
         </div>
       </div>
 
@@ -39,12 +41,11 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const viewModel = computed(() => {
-  return getViewModel(props.record)
-})
+const viewModel = computed(() => getViewModel(props.record))
 
 const subtotal = computed(() => viewModel.value.subtotal)
-const taxInfo = computed(() => viewModel.value.tax)
+const vatTotal = computed(() => viewModel.value.vatTotal)
+const whtTotal = computed(() => viewModel.value.whtTotal)
 const total = computed(() => viewModel.value.total)
 </script>
 

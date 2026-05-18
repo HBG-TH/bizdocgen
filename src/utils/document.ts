@@ -31,5 +31,5 @@ export function formatDate(dateString: string): string {
 }
 
 export function calculateSubtotal(items: Item[]): number {
-  return items.reduce((sum, item) => sum + item.Total, 0)
+  return items.reduce((sum, item) => sum + item.AMT_B_Vat, 0)
 }

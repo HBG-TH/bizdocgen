@@ -3,15 +3,6 @@
     <div class="document-header__provider">
       <h1 class="document-header__provider-name">{{ record.Record.Provider.Name }}</h1>
       <div class="document-header__provider-details">
-        <div
-          v-if="
-            record.Record.Provider.Personnel_Name &&
-            record.Record.Provider.Personnel_Name !== record.Record.Provider.Name
-          "
-          class="document-header__personnel"
-        >
-          {{ record.Record.Provider.Personnel_Name }}
-        </div>
         <div class="document-header__address">
           {{ trimAddress(record.Record.Provider.Address) }}
         </div>
@@ -35,7 +26,7 @@
           อ้างอิง: {{ viewModel.reference.number }}
         </div>
         <div v-if="viewModel.creditTerm" class="document-header__credit-term">
-          เครดิต: {{ viewModel.creditTerm }}
+          เครดิต: {{ viewModel.creditTerm }} วัน
         </div>
       </div>
     </div>
@@ -47,7 +38,6 @@ import { computed } from 'vue'
 import type { GristRecord } from '../types/document-schema'
 import { formatDate, getDocumentTypeInThai } from '../utils/document'
 import { getViewModel } from '../utils/view-model'
-import { isVatRate } from '../utils/tax'
 
 interface Props {
   record: GristRecord
@@ -59,7 +49,7 @@ const viewModel = computed(() => {
   return getViewModel(props.record)
 })
 
-const hasVat = computed(() => isVatRate(props.record.Record.Tax))
+const hasVat = computed(() => viewModel.value.vatTotal > 0)
 
 function trimAddress(address: string): string {
   return address.trim()

@@ -1,47 +1,35 @@
 import type { GristRecord } from '../types/document-schema'
-import type {
-  DocumentViewModel,
-  DisplayItem,
-  TaxInfo,
-  PaymentInfo,
-  BankInfo,
-  ReferenceInfo,
-} from '../types/view-model'
+import type { DocumentViewModel, DisplayItem, PaymentInfo, BankInfo, ReferenceInfo } from '../types/view-model'
 import { calculateSubtotal, sortItems } from './document'
-import { getTaxInfo } from './tax'
+import { aggregateVat, aggregateWht } from './tax'
 
 const viewModelCache = new WeakMap<GristRecord, DocumentViewModel>()
 
 export function getViewModel(record: GristRecord): DocumentViewModel {
-  // Check cache first
   if (viewModelCache.has(record)) {
     return viewModelCache.get(record)!
   }
 
-  // Transform items to display format
   const sortedItems = sortItems(record.Record.Items)
   const items: DisplayItem[] = sortedItems.map((item) => ({
     id: item.id.toString(),
     description: item.Description,
     quantity: item.Quantity,
     unitPrice: item.Unit_Price,
+    discount: item.Discount,
+    amtBVat: item.AMT_B_Vat,
+    vatType: item.Vat_Type,
+    vatAmount: item.Vat_Amount,
+    whtAmount: item.Wht_amount,
     total: item.Total,
     sortOrder: item.Manual_Sort ?? 0,
   }))
 
-  // Calculate financial totals
   const subtotal = calculateSubtotal(record.Record.Items)
-  const gristTaxInfo = getTaxInfo(record.Record.Tax, subtotal)
+  const vatTotal = aggregateVat(record.Record.Items)
+  const whtTotal = aggregateWht(record.Record.Items)
+  const total = record.Record.Items.reduce((sum, item) => sum + item.Total, 0)
 
-  const tax: TaxInfo = {
-    label: gristTaxInfo.label,
-    amount: gristTaxInfo.amount,
-    percentage: gristTaxInfo.percentage,
-  }
-
-  const total = subtotal + tax.amount
-
-  // Transform payment info
   const paymentMethod = record.Record.Payment_Method
   const bankDetails: BankInfo | null = paymentMethod
     ? {
@@ -57,30 +45,22 @@ export function getViewModel(record: GristRecord): DocumentViewModel {
     bankDetails,
   }
 
-  // Transform reference info
   const reference: ReferenceInfo = {
     number: record.Record.Reference?.Number ?? null,
   }
 
-  // Get credit term
-  const creditTerm = record.Record.Credit_Term ?? null
-
-  // Get remarks
-  const remarks = record.Record.Remarks ?? null
-
-  // Create view model
   const viewModel: DocumentViewModel = {
     items,
     subtotal,
-    tax,
+    vatTotal,
+    whtTotal,
     total,
     paymentInfo,
     reference,
-    creditTerm,
-    remarks,
+    creditTerm: record.Record.Credit_Term ?? null,
+    remarks: record.Record.Remarks ?? null,
   }
 
-  // Cache and return
   viewModelCache.set(record, viewModel)
   return viewModel
 }

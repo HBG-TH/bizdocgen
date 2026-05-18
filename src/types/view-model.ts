@@ -3,14 +3,13 @@ export interface DisplayItem {
   description: string
   quantity: number
   unitPrice: number
+  discount: number
+  amtBVat: number
+  vatType: string
+  vatAmount: number
+  whtAmount: number
   total: number
   sortOrder: number
-}
-
-export interface TaxInfo {
-  label: string | null
-  amount: number
-  percentage: number
 }
 
 export interface BankInfo {
@@ -32,10 +31,11 @@ export interface ReferenceInfo {
 export interface DocumentViewModel {
   items: DisplayItem[]
   subtotal: number
-  tax: TaxInfo
+  vatTotal: number
+  whtTotal: number
   total: number
   paymentInfo: PaymentInfo
   reference: ReferenceInfo
-  creditTerm: string | null
+  creditTerm: number | null
   remarks: string | null
 }

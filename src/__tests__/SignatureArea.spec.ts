@@ -21,7 +21,12 @@ function createRecord(documentType: 'Quotation' | 'Invoice'): GristRecord {
           Description: 'Test Item',
           Manual_Sort: 1,
           Quantity: 1,
-          Total: 100,
+          Discount: 0,
+          Total: 107,
+          AMT_B_Vat: 100,
+          Vat_Type: 'VAT 7%',
+          Vat_Amount: 7,
+          Wht_amount: 0,
           Unit_Price: 100,
           id: 3,
         },
@@ -38,7 +43,6 @@ function createRecord(documentType: 'Quotation' | 'Invoice'): GristRecord {
       Reference: null,
       Remarks: null,
       Signed_Document_URL: '',
-      Tax: 0.07,
     },
   }
 }
