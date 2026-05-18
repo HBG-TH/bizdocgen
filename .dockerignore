@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+coverage
+.git
+.github
+.vscode
+test-results
+playwright-report
+e2e-results
+test-storyboards
+_build
+*.log
+*.local
