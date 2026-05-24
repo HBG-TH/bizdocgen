@@ -1,0 +1,61 @@
+{
+  "id": 1,
+  "Record": {
+    "Client": {
+      "Address": "88/88 ชั้น 42 ตึกคลาวด์ซุปเปอร์ทาวเวอร์\nแขวงควันไฟ เขตดาต้า กรุงเทพฯ 10330",
+      "Name": "บริษัท กลุ่มเมฆมันส์ จำกัด",
+      "Tax_ID": "9781234567890"
+    },
+    "Credit_Term": null,
+    "Date": "2025-07-21T00:00:00.000Z",
+    "Document_Type": ["Receipt"],
+    "Items": [
+      {
+        "id": 301,
+        "Description": "**บริการไล่บั๊กระบบ Kubernetes** (SLA: ตีสามก็มา)\n- ตรวจสอบ Pod CrashLoopBackOff\n- ปรับ HPA และ Liveness Probe ให้เหมาะสม",
+        "Manual_Sort": 1,
+        "Quantity": 1,
+        "Unit_Price": 24000,
+        "Discount": 0,
+        "AMT_B_Vat": 24000,
+        "Vat_Type": "VAT 7%",
+        "Vat_Amount": 1680,
+        "Wht_amount": 0,
+        "Total": 25680
+      },
+      {
+        "id": 302,
+        "Description": "ติดตั้ง Helm chart เวอร์ชันเสถียร พร้อมทดสอบ roll back",
+        "Manual_Sort": 2,
+        "Quantity": 1,
+        "Unit_Price": 12000,
+        "Discount": 0,
+        "AMT_B_Vat": 12000,
+        "Vat_Type": "VAT 7%",
+        "Vat_Amount": 840,
+        "Wht_amount": 0,
+        "Total": 12840
+      }
+    ],
+    "Number": "RCPT-2025-0001",
+    "Payment_Method": {
+      "Account_Holder": "นาย โปร แก้ได้หมด",
+      "Account_Number": "111-1-11111-1",
+      "Bank": "ธนาคารไทยพาณิชย์",
+      "Branch": "เซ็นทรัลเวิลด์",
+      "Name": "บัญชีหลัก",
+      "PromptPay": "0891234567"
+    },
+    "Provider": {
+      "Address": "123 ถนนแก้ปัญหา แขวงช่างกล เขตทุกจังหวัด\nราชอาณาจักรไทย 10000",
+      "Email": "hero@fixall.th",
+      "Name": "ฟรีแลนซ์แก้ปัญหาทั่วราชอาณาจักร",
+      "Personnel_Name": "นาย โปร แก้ได้หมด",
+      "Tax_ID": "1234567890123"
+    },
+    "Reference": null,
+    "Remarks": "### หมายเหตุ\nขอบคุณที่เรียกใช้บริการ — ระบบกลับมานิ่งแล้ว ✅",
+    "Signed_Document_URL": null,
+    "Actions_Data": { "actions": [] }
+  }
+}
