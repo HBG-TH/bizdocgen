@@ -123,11 +123,15 @@ export function useAppState() {
 
     // Handle record data
     grist.onRecord(function (recordData: unknown) {
+      window.__bizdocgenReady = false
       try {
         rawGristData.value = recordData
         const validatedRecord = GristRecordSchema.parse(recordData)
         record.value = validatedRecord
         error.value = null
+        nextTick(() => {
+          window.__bizdocgenReady = true
+        })
       } catch (err) {
         console.error('Invalid record data:', err)
         error.value = 'ข้อมูลไม่ถูกต้อง: ' + (err instanceof Error ? err.message : String(err))

@@ -36,6 +36,7 @@ interface GristAPI {
 declare global {
   interface Window {
     grist?: GristAPI
+    __bizdocgenReady?: boolean
   }
 }
 
