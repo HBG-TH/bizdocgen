@@ -85,9 +85,14 @@ class MockGristAPI implements GristAPI {
     if (options?.onEditOptions) {
       this.onEditOptionsCallback = options.onEditOptions
     }
+
+    const urlParams = new URLSearchParams(window.location.search)
+
+    // Headless mode: skip auto-load and wait for record injection via DOM event
+    if (urlParams.get('mode') === 'headless') return
+
     // Simulate Grist ready by loading initial scenario from URL or default
     setTimeout(() => {
-      const urlParams = new URLSearchParams(window.location.search)
       const scenarioSlug = urlParams.get('scenario')
 
       // Load scenario data if specified, otherwise load default sample
@@ -201,11 +206,15 @@ class MockGristAPI implements GristAPI {
         Items: [
           {
             Description: '**ไอเทมทดสอบ** - รายการสำคัญ\n- คุณภาพสูง\n- รหัสสินค้า: `TEST001`',
-            Document: { tableId: 'Documents', rowId: 5 },
             Manual_Sort: 1,
             Quantity: 2,
-            Total: 198,
             Unit_Price: 99,
+            Discount: 0,
+            AMT_B_Vat: 198,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
+            Total: 198,
             id: 5,
           },
         ],
