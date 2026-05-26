@@ -13,7 +13,6 @@
     "type-check": "vue-tsc --build && tsc --project e2e",
     "lint": "vp lint . --fix",
     "format": "vp fmt src/",
-    "render": "node --import jiti/register scripts/render-pdf.ts",
     "sync-template": "wget -Otemplate.grist 'https://bizdocgen.getgrist.com/api/docs/cq6sb6WHRMreH2SCAzhcmC/download?nohistory=true'"
   },
   "dependencies": {
