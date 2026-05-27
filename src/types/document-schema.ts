@@ -37,7 +37,7 @@ export const ItemSchema = z.object({
   id: z.number(),
 })
 
-export const DocumentTypeSchema = z.enum(['Quotation', 'Invoice', 'Receipt', 'Receipt/TaxInvoice'])
+export const DocumentTypeSchema = z.enum(['Quotation', 'Invoice', 'Receipt'])
 
 export const DocumentTypeListSchema = z.preprocess((value) => {
   return Array.isArray(value) ? value : [value]
