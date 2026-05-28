@@ -33,8 +33,8 @@ interface DocInfo {
 }
 
 interface GristDocAPI {
-  getAccessToken: (options: { readOnly: boolean }) => Promise<AccessTokenResult>
-  getDocInfo: () => Promise<DocInfo>
+  // docApi.getDocInfo() is available in some Grist versions
+  getDocInfo?: () => Promise<DocInfo>
 }
 
 interface GristAPI {
@@ -45,6 +45,8 @@ interface GristAPI {
   getOption: (key: string) => unknown
   getTable: (tableId?: string) => TableOperations
   fetchSelectedRecord: (rowId: number) => Promise<Record<string, unknown>>
+  // getAccessToken is a TOP-LEVEL method (not on docApi) in the Grist widget API
+  getAccessToken?: (options: { readOnly: boolean }) => Promise<AccessTokenResult>
   docApi?: GristDocAPI
 }
 
@@ -275,15 +277,37 @@ export const grist: GristAPI = isInsideGrist ? window.grist! : new MockGristAPI(
  * (the bot pre-resolves and injects Logo_Url before calling the renderer).
  */
 export async function resolveProviderLogoUrl(attachmentId: number): Promise<string | null> {
-  if (!isInsideGrist || !window.grist?.docApi) return null
+  if (!isInsideGrist || !window.grist) return null
   try {
-    const [{ token, baseUrl }, { docId }] = await Promise.all([
-      window.grist.docApi.getAccessToken({ readOnly: true }),
-      window.grist.docApi.getDocInfo(),
-    ])
+    // getAccessToken is a top-level method on window.grist (not on docApi)
+    const tokenResult = await window.grist.getAccessToken?.({ readOnly: true })
+    if (!tokenResult) {
+      console.warn('[bizdocgen] grist.getAccessToken() is not available in this Grist version')
+      return null
+    }
+    const { token, baseUrl } = tokenResult
+
+    // Try to get docId from docApi.getDocInfo(), fall back to Vite env var
+    let docId: string | undefined
+    try {
+      const info = await window.grist.docApi?.getDocInfo?.()
+      docId = info?.docId
+    } catch {
+      // swallow — will fall through to env var
+    }
+    docId ??= import.meta.env.VITE_GRIST_DOC_ID as string | undefined
+
+    if (!docId) {
+      console.warn('[bizdocgen] Could not determine Grist docId. Set VITE_GRIST_DOC_ID env var.')
+      return null
+    }
+
     const url = `${baseUrl}/api/docs/${docId}/attachments/${attachmentId}/download?auth=${token}`
     const resp = await fetch(url)
-    if (!resp.ok) return null
+    if (!resp.ok) {
+      console.warn(`[bizdocgen] Attachment fetch failed: ${resp.status} ${resp.statusText}`)
+      return null
+    }
     const blob = await resp.blob()
     return URL.createObjectURL(blob) // valid for the lifetime of the page
   } catch (e) {
