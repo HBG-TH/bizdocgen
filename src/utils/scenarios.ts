@@ -29,6 +29,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 24000, // ~4h
             Total: 24000,
+            Discount: 0,
+            AMT_B_Vat: 24000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 302,
@@ -37,6 +42,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 12000, // ~2h
             Total: 12000,
+            Discount: 0,
+            AMT_B_Vat: 12000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 303,
@@ -45,6 +55,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 3,
             Unit_Price: 120,
             Total: 360,
+            Discount: 0,
+            AMT_B_Vat: 360,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'RCPT-2025-0001',
@@ -94,6 +109,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 12000, // ~2h
             Total: 12000,
+            Discount: 0,
+            AMT_B_Vat: 12000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 305,
@@ -102,6 +122,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 2,
             Unit_Price: 9000, // ~1.5h each
             Total: 18000,
+            Discount: 0,
+            AMT_B_Vat: 18000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'INV-2025-0007',
@@ -150,6 +175,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 48000, // ~1 day
             Total: 48000,
+            Discount: 0,
+            AMT_B_Vat: 48000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 307,
@@ -158,6 +188,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 48000, // ~1 day
             Total: 48000,
+            Discount: 0,
+            AMT_B_Vat: 48000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'QT-2025-0042',
@@ -237,6 +272,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 6000, // minimum 1h
             Total: 6000,
+            Discount: 0,
+            AMT_B_Vat: 6000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 309,
@@ -245,6 +285,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 3000, // ~0.5h
             Total: 3000,
+            Discount: 0,
+            AMT_B_Vat: 3000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'RCPT-2025-0100',
@@ -290,6 +335,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 36000, // ~6h
             Total: 36000,
+            Discount: 0,
+            AMT_B_Vat: 36000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 311,
@@ -298,6 +348,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 18000, // ~3h
             Total: 18000,
+            Discount: 0,
+            AMT_B_Vat: 18000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 312,
@@ -306,6 +361,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 24000, // ~4h
             Total: 24000,
+            Discount: 0,
+            AMT_B_Vat: 24000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 313,
@@ -314,6 +374,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 2,
             Unit_Price: 12000, // ~2h each
             Total: 24000,
+            Discount: 0,
+            AMT_B_Vat: 24000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 314,
@@ -322,6 +387,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 3,
             Unit_Price: 6000, // ~1h each
             Total: 18000,
+            Discount: 0,
+            AMT_B_Vat: 18000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 315,
@@ -330,6 +400,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 12000, // ~2h
             Total: 12000,
+            Discount: 0,
+            AMT_B_Vat: 12000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'INV-2025-0022',
@@ -377,6 +452,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 2,
             Unit_Price: 12000, // ~2h each
             Total: 24000,
+            Discount: 0,
+            AMT_B_Vat: 24000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 317,
@@ -385,6 +465,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 6000, // ~1h
             Total: 6000,
+            Discount: 0,
+            AMT_B_Vat: 6000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'QT-2025-0088',
@@ -462,6 +547,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 24000, // ~4h
             Total: 24000,
+            Discount: 0,
+            AMT_B_Vat: 24000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 319,
@@ -470,6 +560,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 12000, // ~2h
             Total: 12000,
+            Discount: 0,
+            AMT_B_Vat: 12000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'RCPT-2025-0112',
@@ -515,6 +610,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 9000, // ~1.5h
             Total: 9000,
+            Discount: 0,
+            AMT_B_Vat: 9000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 321,
@@ -523,6 +623,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 2,
             Unit_Price: 6000, // ~1h each (labor)
             Total: 12000,
+            Discount: 0,
+            AMT_B_Vat: 12000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 322,
@@ -531,6 +636,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 9000, // ~1.5h
             Total: 9000,
+            Discount: 0,
+            AMT_B_Vat: 9000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'INV-2025-0030',
@@ -576,6 +686,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 18000, // ~2h with emergency surcharge
             Total: 18000,
+            Discount: 0,
+            AMT_B_Vat: 18000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 324,
@@ -584,6 +699,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 9000, // travel/time & fuel
             Total: 9000,
+            Discount: 0,
+            AMT_B_Vat: 9000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 325,
@@ -592,6 +712,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 3,
             Unit_Price: 120,
             Total: 360,
+            Discount: 0,
+            AMT_B_Vat: 360,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'RCPT-2025-0144',
@@ -638,6 +763,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 18000, // ~3h
             Total: 18000,
+            Discount: 0,
+            AMT_B_Vat: 18000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
           {
             id: 327,
@@ -646,6 +776,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 48000, // ~1 day
             Total: 48000,
+            Discount: 0,
+            AMT_B_Vat: 48000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'QT-2025-0101',
@@ -723,6 +858,11 @@ export const scenarios: { title: string; slug: string; data: GristRecord }[] = [
             Quantity: 1,
             Unit_Price: 1000,
             Total: 1000,
+            Discount: 0,
+            AMT_B_Vat: 1000,
+            Vat_Type: 'No VAT',
+            Vat_Amount: 0,
+            Wht_amount: 0,
           },
         ],
         Number: 'SIGNED-TEST-001',

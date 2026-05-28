@@ -1,7 +1,7 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import type { GristRecord, Action } from '../types/document-schema'
 import { GristRecordSchema } from '../types/document-schema'
-import { grist } from '../utils/grist'
+import { grist, isGristMocked, resolveProviderLogoUrl } from '../utils/grist'
 
 // App state
 const record = ref<GristRecord | null>(null)
@@ -122,16 +122,24 @@ export function useAppState() {
     })
 
     // Handle record data
-    grist.onRecord(function (recordData: unknown) {
+    grist.onRecord(async function (recordData: unknown) {
       window.__bizdocgenReady = false
       try {
         rawGristData.value = recordData
         const validatedRecord = GristRecordSchema.parse(recordData)
+
+        // Resolve provider logo from Grist attachment (widget mode only).
+        // In headless mode the bot pre-resolves and injects Logo_Url, so we skip this.
+        const attachmentId = validatedRecord.Record.Provider.Logo_Attachment_Id
+        if (!isGristMocked && attachmentId) {
+          const logoUrl = await resolveProviderLogoUrl(attachmentId)
+          if (logoUrl) validatedRecord.Record.Provider.Logo_Url = logoUrl
+        }
+
         record.value = validatedRecord
         error.value = null
-        nextTick(() => {
-          window.__bizdocgenReady = true
-        })
+        await nextTick()
+        window.__bizdocgenReady = true
       } catch (err) {
         console.error('Invalid record data:', err)
         error.value = 'ข้อมูลไม่ถูกต้อง: ' + (err instanceof Error ? err.message : String(err))

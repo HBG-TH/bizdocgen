@@ -1,6 +1,12 @@
 <template>
   <header class="document-header">
-    <div class="document-header__provider">
+    <div class="document-header__provider" :class="{ 'document-header__provider--has-logo': record.Record.Provider.Logo_Url }">
+      <img
+        v-if="record.Record.Provider.Logo_Url"
+        :src="record.Record.Provider.Logo_Url"
+        class="document-header__logo"
+        alt=""
+      />
       <h1 class="document-header__provider-name">{{ record.Record.Provider.Name }}</h1>
       <div class="document-header__provider-details">
         <div class="document-header__address">
@@ -70,6 +76,21 @@ function trimAddress(address: string): string {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
+  position: relative; /* anchor for absolutely-positioned logo */
+}
+
+.document-header__provider--has-logo {
+  padding-left: 3.25cm; /* push text right to make room for the logo */
+}
+
+.document-header__logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3cm;
+  height: 100%;
+  object-fit: contain;
+  object-position: top left;
 }
 
 .document-header__provider-name {

@@ -21,6 +21,8 @@ export const ProviderSchema = z.object({
   Name: z.string(), // Brand name
   Personnel_Name: z.string().nullish(), // Optional, for signature (ลงชื่อ)
   Tax_ID: z.string(),
+  Logo_Attachment_Id: z.number().nullish(), // Grist attachment row ID (resolved at runtime)
+  Logo_Url: z.string().nullish(),           // Resolved URL or base64 data URL — used by the template
 })
 
 export const ItemSchema = z.object({
@@ -78,6 +80,7 @@ export const RecordDataSchema = z.object({
   Remarks: z.string().nullish(),
   Signed_Document_URL: z.union([z.url(), z.literal('')]).nullish(),
   Actions_Data: ActionsDataSchema.optional(),
+  Tax: z.number().nullish(), // legacy field present in some scenario data; not displayed
 })
 
 export const GristRecordSchema = z.object({

@@ -23,14 +23,29 @@ interface TableOperations {
   create: (record: NewRecord, options?: unknown) => Promise<MinimalRecord>
 }
 
+interface AccessTokenResult {
+  token: string
+  baseUrl: string
+}
+
+interface DocInfo {
+  docId: string
+}
+
+interface GristDocAPI {
+  getAccessToken: (options: { readOnly: boolean }) => Promise<AccessTokenResult>
+  getDocInfo: () => Promise<DocInfo>
+}
+
 interface GristAPI {
   ready: (options?: GristReadyOptions) => void
-  onRecord: (callback: (record: GristRecord) => void) => void
+  onRecord: (callback: (record: GristRecord) => void | Promise<void>) => void
   onOptions: (callback: (options: GristOptions) => void) => void
   setOption: (key: string, value: unknown) => void
   getOption: (key: string) => unknown
   getTable: (tableId?: string) => TableOperations
   fetchSelectedRecord: (rowId: number) => Promise<Record<string, unknown>>
+  docApi?: GristDocAPI
 }
 
 declare global {
@@ -253,3 +268,26 @@ class MockGristAPI implements GristAPI {
 
 // Export the appropriate API
 export const grist: GristAPI = isInsideGrist ? window.grist! : new MockGristAPI()
+
+/**
+ * Resolve a Grist attachment ID to a usable image URL.
+ * Only works in real widget mode — returns null in headless/mock mode
+ * (the bot pre-resolves and injects Logo_Url before calling the renderer).
+ */
+export async function resolveProviderLogoUrl(attachmentId: number): Promise<string | null> {
+  if (!isInsideGrist || !window.grist?.docApi) return null
+  try {
+    const [{ token, baseUrl }, { docId }] = await Promise.all([
+      window.grist.docApi.getAccessToken({ readOnly: true }),
+      window.grist.docApi.getDocInfo(),
+    ])
+    const url = `${baseUrl}/api/docs/${docId}/attachments/${attachmentId}/download?auth=${token}`
+    const resp = await fetch(url)
+    if (!resp.ok) return null
+    const blob = await resp.blob()
+    return URL.createObjectURL(blob) // valid for the lifetime of the page
+  } catch (e) {
+    console.warn('[bizdocgen] Could not resolve logo attachment:', e)
+    return null
+  }
+}
