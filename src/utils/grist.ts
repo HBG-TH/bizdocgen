@@ -272,14 +272,18 @@ class MockGristAPI implements GristAPI {
 export const grist: GristAPI = isInsideGrist ? window.grist! : new MockGristAPI()
 
 /**
- * Resolve a Grist attachment ID to a usable image URL.
- * Only works in real widget mode — returns null in headless/mock mode
- * (the bot pre-resolves and injects Logo_Url before calling the renderer).
+ * Resolve a Grist attachment ID to a base64 data URL.
+ *
+ * Only works in real widget mode — in headless/mock mode the bot pre-resolves
+ * and injects Logo_Url before calling the renderer, so this is skipped.
+ *
+ * grist.getAccessToken() returns { token, baseUrl } where baseUrl is already
+ * the document API root, e.g. "https://docs.getgrist.com/o/org/api/docs/{docId}".
+ * We must NOT append "/api/docs/{docId}" again — that was the previous bug.
  */
 export async function resolveProviderLogoUrl(attachmentId: number): Promise<string | null> {
   if (!isInsideGrist || !window.grist) return null
   try {
-    // getAccessToken is a top-level method on window.grist (not on docApi)
     const tokenResult = await window.grist.getAccessToken?.({ readOnly: true })
     if (!tokenResult) {
       console.warn('[bizdocgen] grist.getAccessToken() is not available in this Grist version')
@@ -287,29 +291,22 @@ export async function resolveProviderLogoUrl(attachmentId: number): Promise<stri
     }
     const { token, baseUrl } = tokenResult
 
-    // Try to get docId from docApi.getDocInfo(), fall back to Vite env var
-    let docId: string | undefined
-    try {
-      const info = await window.grist.docApi?.getDocInfo?.()
-      docId = info?.docId
-    } catch {
-      // swallow — will fall through to env var
-    }
-    docId ??= import.meta.env.VITE_GRIST_DOC_ID as string | undefined
-
-    if (!docId) {
-      console.warn('[bizdocgen] Could not determine Grist docId. Set VITE_GRIST_DOC_ID env var.')
-      return null
-    }
-
-    const url = `${baseUrl}/api/docs/${docId}/attachments/${attachmentId}/download?auth=${token}`
+    // baseUrl already includes the doc path — just append the attachment route
+    const url = `${baseUrl}/attachments/${attachmentId}/download?auth=${token}`
     const resp = await fetch(url)
     if (!resp.ok) {
       console.warn(`[bizdocgen] Attachment fetch failed: ${resp.status} ${resp.statusText}`)
       return null
     }
+
+    // Convert to base64 data URL so the image survives print dialogs and PDF export
     const blob = await resp.blob()
-    return URL.createObjectURL(blob) // valid for the lifetime of the page
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = reject
+      reader.readAsDataURL(blob)
+    })
   } catch (e) {
     console.warn('[bizdocgen] Could not resolve logo attachment:', e)
     return null

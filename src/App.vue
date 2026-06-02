@@ -19,13 +19,8 @@ const {
   rawGristData,
   error,
   isLoading,
-  customCss,
-  showSettings,
-  settingsRef,
-  isCssChanged,
   isExecutingAction,
   actionsData,
-  saveCustomCss,
   initializeGrist,
   executeAction,
 } = useAppState()
@@ -97,62 +92,6 @@ onMounted(async () => {
         <template v-else>
           <PrintableDocument :record="record" />
         </template>
-      </div>
-
-      <!-- CSS Settings Section -->
-      <div
-        ref="settingsRef"
-        class="app__settings"
-        data-testid="settings-panel"
-        :class="{ 'app__settings--open': showSettings }"
-      >
-        <div class="app__settings-header">
-          <button
-            type="button"
-            class="app__settings-toggle"
-            data-testid="settings-toggle"
-            :aria-expanded="showSettings"
-            aria-controls="settings-content"
-            @click="showSettings = !showSettings"
-          >
-            {{ showSettings ? '▼' : '▶' }} Custom CSS Settings
-          </button>
-        </div>
-
-        <div
-          v-if="showSettings"
-          id="settings-content"
-          class="app__settings-content"
-          data-testid="settings-content"
-        >
-          <div class="app__settings-field">
-            <label for="custom-css" class="app__settings-label"> Custom CSS: </label>
-            <textarea
-              id="custom-css"
-              v-model="customCss"
-              class="app__settings-textarea"
-              data-testid="custom-css-textarea"
-              aria-label="Custom CSS styles"
-              placeholder=".document {
-  --font-family: Comic Sans MS, Itim, sans-serif;
-}"
-              rows="10"
-            ></textarea>
-          </div>
-
-          <div class="app__settings-actions">
-            <button
-              type="button"
-              class="app__settings-apply"
-              data-testid="apply-settings-button"
-              aria-label="Apply custom CSS settings"
-              :disabled="!isCssChanged"
-              @click="saveCustomCss"
-            >
-              Apply CSS
-            </button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -233,117 +172,5 @@ onMounted(async () => {
 .app__no-data {
   color: var(--text-muted);
   font-size: var(--font-size-lg);
-}
-
-/* CSS Settings Styles */
-.app__settings {
-  max-width: var(--document-width);
-  margin: var(--spacing-lg) auto;
-  border: 1px solid #e0e0e0;
-  border-radius: var(--border-radius);
-  background: white;
-  overflow: hidden;
-}
-
-@media print {
-  .app__settings {
-    display: none !important;
-  }
-}
-
-.app__settings-header {
-  background: #f8f9fa;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.app__settings-toggle {
-  width: 100%;
-  padding: var(--spacing-md);
-  background: transparent;
-  border: none;
-  text-align: left;
-  font-family: var(--font-family-system);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  color: var(--text-primary);
-  transition: background-color 0.2s;
-}
-
-.app__settings-toggle:hover {
-  background: #f0f0f0;
-}
-
-.app__settings-content {
-  padding: var(--spacing-lg);
-}
-
-.app__settings-field {
-  margin-bottom: var(--spacing-lg);
-}
-
-.app__settings-label {
-  display: block;
-  margin-bottom: var(--spacing-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
-  font-size: var(--font-size-sm);
-}
-
-.app__settings-textarea {
-  width: 100%;
-  min-height: 200px;
-  padding: var(--spacing-md);
-  border: 1px solid #d0d0d0;
-  border-radius: var(--border-radius);
-  font-family: var(--font-family-mono);
-  font-size: 13px;
-  line-height: 1.5;
-  resize: vertical;
-  background: #fafafa;
-  color: var(--text-primary);
-}
-
-.app__settings-textarea:focus {
-  outline: none;
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-}
-
-.app__settings-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--spacing-md);
-}
-
-.app__settings-apply {
-  padding: var(--button-padding);
-  background-color: var(--primary-blue);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  font-family: var(--font-family-system);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.app__settings-apply:hover {
-  background-color: var(--primary-blue-dark);
-}
-
-.app__settings-apply:active {
-  transform: translateY(1px);
-}
-
-.app__settings-apply:disabled {
-  background-color: #d1d5db;
-  color: #9ca3af;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.app__settings-apply:disabled:hover {
-  background-color: #d1d5db;
 }
 </style>
