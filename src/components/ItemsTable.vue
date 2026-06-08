@@ -32,7 +32,7 @@
             {{ item.discount > 0 ? formatCurrency(item.discount) : '-' }}
           </td>
           <td class="items-table__cell items-table__cell--vat">
-            {{ item.vatType || '-' }}
+            {{ item.vatAmount > 0 ? formatCurrency(item.vatAmount) : '-' }}
           </td>
           <td class="items-table__cell items-table__cell--amt-b-vat">
             {{ formatCurrency(item.amtBVat) }}
@@ -95,7 +95,7 @@ const viewModel = computed(() => {
 
 .items-table__header--number,
 .items-table__cell--number {
-  width: 0.8cm;
+  width: 0.5cm;
   text-align: center;
 }
 
@@ -106,37 +106,37 @@ const viewModel = computed(() => {
 
 .items-table__header--quantity,
 .items-table__cell--quantity {
-  width: 0.9cm;
+  width: 0.7cm;
   text-align: right;
 }
 
 .items-table__header--unit-price,
 .items-table__cell--unit-price {
-  width: 1.8cm;
+  width: 1.6cm;
   text-align: right;
 }
 
 .items-table__header--discount,
 .items-table__cell--discount {
-  width: 1.6cm;
+  width: 1.3cm;
   text-align: right;
 }
 
 .items-table__header--vat,
 .items-table__cell--vat {
-  width: 1cm;
-  text-align: center;
+  width: 1.5cm;
+  text-align: right;
 }
 
 .items-table__header--amt-b-vat,
 .items-table__cell--amt-b-vat {
-  width: 2cm;
+  width: 1.8cm;
   text-align: right;
 }
 
 .items-table__header--wht,
 .items-table__cell--wht {
-  width: 1.2cm;
+  width: 1.1cm;
   text-align: right;
 }
 
