@@ -37,5 +37,6 @@ export interface DocumentViewModel {
   paymentInfo: PaymentInfo
   reference: ReferenceInfo
   creditTerm: number | null
+  dueDate: string | null   // ISO date — "วันหมดอายุ" for Quotation, "วันครบกำหนด" for Invoice
   remarks: string | null
 }

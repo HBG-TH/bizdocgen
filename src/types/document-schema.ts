@@ -71,6 +71,7 @@ export const RecordDataSchema = z.object({
   Client: ClientSchema,
   Credit_Term: z.number().nullish(),
   Date: z.string(), // ISO date string
+  Due_Date: z.string().nullish(), // ISO date string — expiry for Quotation, due date for Invoice
   Document_Type: DocumentTypeListSchema,
   Items: z.array(ItemSchema),
   Number: z.string(),

@@ -31,8 +31,9 @@
         <div v-if="viewModel.reference.number" class="document-header__reference">
           อ้างอิง: {{ viewModel.reference.number }}
         </div>
-        <div v-if="viewModel.creditTerm" class="document-header__credit-term">
-          เครดิต: {{ viewModel.creditTerm }} วัน
+        <div v-if="viewModel.dueDate" class="document-header__due-date">
+          {{ record.Record.Document_Type[0] === 'Quotation' ? 'วันหมดอายุ' : 'วันครบกำหนด' }}:
+          {{ formatDate(viewModel.dueDate) }}
         </div>
       </div>
     </div>

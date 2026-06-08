@@ -58,6 +58,7 @@ export function getViewModel(record: GristRecord): DocumentViewModel {
     paymentInfo,
     reference,
     creditTerm: record.Record.Credit_Term ?? null,
+    dueDate: record.Record.Due_Date ?? null,
     remarks: record.Record.Remarks ?? null,
   }
 
