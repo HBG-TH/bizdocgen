@@ -106,37 +106,37 @@ const viewModel = computed(() => {
 
 .items-table__header--quantity,
 .items-table__cell--quantity {
-  width: 0.7cm;
+  width: 0.6cm;
   text-align: right;
 }
 
 .items-table__header--unit-price,
 .items-table__cell--unit-price {
-  width: 1.6cm;
+  width: 1.4cm;
   text-align: right;
 }
 
 .items-table__header--discount,
 .items-table__cell--discount {
-  width: 1.3cm;
+  width: 0.9cm;
   text-align: right;
 }
 
 .items-table__header--vat,
 .items-table__cell--vat {
-  width: 1.5cm;
+  width: 1cm;
   text-align: right;
 }
 
 .items-table__header--amt-b-vat,
 .items-table__cell--amt-b-vat {
-  width: 1.8cm;
+  width: 1.6cm;
   text-align: right;
 }
 
 .items-table__header--wht,
 .items-table__cell--wht {
-  width: 1.1cm;
+  width: 0.7cm;
   text-align: right;
 }
 
